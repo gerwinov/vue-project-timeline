@@ -1,7 +1,6 @@
 .DS_Store
 node_modules
 /dist
-/public/css/styles.css
 
 # local env files
 .env.local
