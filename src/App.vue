@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="flex">
-      <div class="flex w-full sm:w-1/2 md:w-1/4 sm:justify-end pr-4" :style="{ backgroundColor: timelineBgColor }">
+      <div class="hidden sm:flex sm:w-1/2 md:w-1/4 justify-end sm:pr-4" :style="{ backgroundColor: timelineBgColor }">
         <div class="flex flex-col border-r-2 py-4" :style="{ borderColor: timelineColor }">
           <div class="flex text-white pr-2 h-10 items-center" v-for="year in timelineYears">
             <h3 class="font-normal">{{ year }}</h3>
