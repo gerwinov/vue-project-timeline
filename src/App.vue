@@ -11,9 +11,9 @@
           <div class="ml-4" v-for="(projectId, key) in timeline">
             <div class="h-10" v-for="n in getProjectSpacing(timeline, key)"></div>
             <div
-              class="h-10 w-3 cursor-pointer"
-              :class="{ 'animated pulse shadow-md w-5': selectedProject === projectId }"
+              class="h-10 w-3 cursor-pointer bg-white opacity-50"
               :style="getTimelineElementStyle(projectId)"
+              :class="{ 'shadow-md opacity-100' : selectedProject === projectId }"
               v-for="n in getProjectYears(projectId)"
               @click="selectedProject = projectId">
             </div>
@@ -194,11 +194,9 @@
       },
 
       getTimelineElementStyle(projectId) {
-        let style = 'backgroundColor: ' + this.sortedProjects[projectId].color
         if (this.selectedProject === projectId) {
-          return style + '; animationIterationCount: infinite;'
+          return 'backgroundColor: ' + this.sortedProjects[projectId].color
         }
-        return style
       }
     }
   }
