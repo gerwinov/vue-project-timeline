@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="flex">
-      <div class="hidden sm:flex sm:w-1/2 md:w-1/4 justify-end sm:pr-4" :style="{ backgroundColor: timelineBgColor }">
+      <div class="hidden sm:flex sm:w-1/2 md:w-1/4 justify-end sm:pr-4" :style="{ backgroundColor: timelineBgColor }" @mouseenter="hoverOn()" @mouseleave="hoverOff()">
         <div class="flex flex-col border-r-2 py-4" :style="{ borderColor: timelineColor }">
           <div class="flex text-white pr-2 h-10 items-center" v-for="year in timelineYears">
             <h3 class="font-normal">{{ year }}</h3>
@@ -193,10 +193,46 @@
         return (this.sortedProjects[timeline[key - 1]].startYear - this.sortedProjects[timeline[key]].endYear)
       },
 
-      getTimelineElementStyle(projectId) {
+      getTimelineElementStyle (projectId) {
         if (this.selectedProject === projectId) {
           return 'backgroundColor: ' + this.sortedProjects[projectId].color
         }
+      },
+
+      hoverOn () {
+        this.scrollPosition = window.pageYOffset
+        window.addEventListener('wheel', this.handleScroll)
+      },
+
+      hoverOff () {
+        window.removeEventListener('wheel', this.handleScroll)
+      },
+
+      handleScroll (e) {
+        if (e.deltaY > 0) {
+          this.nextProject()
+        }
+        if (e.deltaY < 0) {
+          this.prevProject()
+        }
+      },
+
+      nextProject () {
+        if (this.selectedProject < this.sortedProjects.length - 1) {
+          this.selectedProject++
+          return
+        }
+
+        this.selectedProject = 0
+      },
+
+      prevProject () {
+        if (this.selectedProject > 0) {
+          this.selectedProject--
+          return
+        }
+
+        this.selectedProject = this.sortedProjects.length - 1
       }
     }
   }
