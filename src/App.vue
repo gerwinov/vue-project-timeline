@@ -3,18 +3,19 @@
     <div class="flex">
       <div class="hidden sm:flex sm:w-1/2 md:w-1/4 justify-end sm:pr-4" :style="{ backgroundColor: timelineBgColor }" @mouseenter="hoverOn()" @mouseleave="hoverOff()">
         <div class="flex flex-col border-r-2 py-4" :style="{ borderColor: timelineColor }">
-          <div class="flex text-white pr-2 h-10 items-center" v-for="year in timelineYears">
+          <div class="flex text-white pr-2 h-10 items-center" :key="key" v-for="(year, key) in timelineYears">
             <h3 class="font-normal">{{ year }}</h3>
           </div>
         </div>
-        <div class="flex flex-col py-4" v-for="timeline in timelines">
-          <div class="ml-4" v-for="(projectId, key) in timeline">
-            <div class="h-10" v-for="n in getProjectSpacing(timeline, key)"></div>
+        <div class="flex flex-col py-4" :key="key" v-for="(timeline, key) in timelines">
+          <div class="ml-4" :key="key" v-for="(projectId, key) in timeline">
+            <div class="h-10" :key="key" v-for="(n, key) in getProjectSpacing(timeline, key)"></div>
             <div
               class="h-10 w-3 cursor-pointer bg-white opacity-50"
               :style="getTimelineElementStyle(projectId)"
               :class="{ 'shadow-md opacity-100' : selectedProject === projectId }"
-              v-for="n in getProjectYears(projectId)"
+              :key="key"
+              v-for="(n, key) in getProjectYears(projectId)"
               @click="selectedProject = projectId">
             </div>
           </div>
@@ -26,6 +27,7 @@
           :selected="selectedProject === key"
           :selectedBgColor="selectedBgColor"
           :hoverBgColor="hoverBgColor"
+          :key="key"
           v-for="(project, key) in sortedProjects"
           @selected="selectedProject = key">
         </project-card>
