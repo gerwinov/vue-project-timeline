@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="flex">
+    <div class="flex" v-if="invalidProjects.length === 0">
       <div class="hidden sm:flex sm:w-1/2 md:w-1/4 justify-end sm:pr-4" :style="{ backgroundColor: timelineBgColor }" @mouseenter="hoverOn()" @mouseleave="hoverOff()">
         <div class="flex flex-col border-r-2 py-4" :style="{ borderColor: timelineColor }">
           <div class="flex text-white pr-2 h-10 items-center" :key="'y' + key" v-for="(year, key) in timelineYears">
@@ -33,17 +33,19 @@
         </project-card>
       </div>
     </div>
+    <config-error :invalidProjects="invalidProjects" v-else></config-error>
   </div>
 </template>
 
 <script>
   import ProjectCard from './components/ProjectCard.vue'
+  import ConfigError from './components/ConfigError.vue'
 
   export default {
     name: 'app',
 
     components: {
-      ProjectCard
+      ProjectCard, ConfigError
     },
 
     props: {
@@ -70,6 +72,11 @@
         default: '#FFEDCB',
         type: String
       },
+
+      // projects: {
+      //   required: true,
+      //   type: Array
+      // }
     },
 
     data () {
@@ -133,6 +140,24 @@
           }
           return 0;
         })
+      },
+
+      invalidProjects () {
+        let invalids = []
+
+        this.projects.forEach((project) => {
+          if (project.title) {
+            if (project.startYear && project.startYear > 1900 && project.startYear < 2100) {
+              if (project.endYear && project.endYear > 1900 && project.endYear < 2100) {
+                return
+              }
+            }
+          }
+
+          invalids.push(project)
+        })
+
+        return invalids
       },
 
       endYear () {
@@ -236,7 +261,7 @@
 
         this.selectedProject = this.sortedProjects.length - 1
       }
-    }
+    },
   }
 </script>
 

@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col cursor-pointer py-6" :style="{ backgroundColor: bgColor }" ref="card" @click="$emit('selected')" @mouseenter="hovering = true" @mouseleave="hovering = false">
     <div class="flex flex-row max-w-md overflow-hidden px-6">
-      <div class="flex-none">
-        <img class="w-16 mr-4" alt="project logo" :src="project.image">
+      <div class="flex-none w-16 mr-4">
+        <img alt="project logo" :src="project.image" v-if="project.image">
       </div>
       <div class="flex flex-col">
         <h1 class="leading-none">{{ project.title }}</h1>
