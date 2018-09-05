@@ -5,9 +5,9 @@
   "homepage": "https://github.com/gerwinov/vue-project-timeline",
   "version": "0.1.1",
   "license": "MIT",
-  "main": "dist/vue-project-timeline.umd.js",
-  "module": "dist/vue-project-timeline.esm.js",
-  "unpkg": "dist/vue-project-timeline.min.js",
+  "main": "dist/VueProjectTimeline.umd.js",
+  "module": "dist/VueProjectTimeline.esm.js",
+  "unpkg": "dist/VueProjectTimeline.min.js",
   "browser": {
     "./sfc": "src/App.vue"
   },
