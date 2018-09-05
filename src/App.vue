@@ -93,7 +93,7 @@
                           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
             image: `https://orig00.deviantart.net/e475/f/2011/338/e/f/the_green_circle___flag___logo_by_exxp0-d4i51ve.png`,
             startYear: 2015,
-            endYear: 2015,
+            endYear: null,
             color: 'blue'
           },
           {
@@ -133,8 +133,12 @@
       sortedProjects () {
         let projects = this.projects.map((project) => {
           if (!project.endYear) {
-            project.endYear = this.currentYear
+            // Use Object.assign to avoid mutating an object which belongs to the project array, which is a prop.
+            return Object.assign({}, project, {
+              endYear: this.currentYear
+            })
           }
+
           return project
         })
 
@@ -156,7 +160,7 @@
           if (project.title) {
             if (project.startYear && project.startYear > 1900 && project.startYear < 2100) {
               if (project.endYear <= this.currentYear) {
-                if (project.endYear >= project.startYear)
+                if (!project.endYear || project.endYear >= project.startYear)
                 return
               }
             }
@@ -169,13 +173,13 @@
       },
 
       endYear () {
-        return Math.max.apply(Math, this.projects.map((project) => {
+        return Math.max.apply(Math, this.sortedProjects.map((project) => {
           return project.endYear
         }))
       },
 
       startYear () {
-        return Math.min.apply(Math, this.projects.map((project) => {
+        return Math.min.apply(Math, this.sortedProjects.map((project) => {
           return project.startYear
         }))
       },
