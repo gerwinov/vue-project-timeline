@@ -42,7 +42,7 @@
   import ConfigError from './components/ConfigError.vue'
 
   export default {
-    name: 'app',
+    name: 'VueProjectTimeline',
 
     components: {
       ProjectCard, ConfigError
