@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-if="projects">
     <div class="flex" v-if="invalidProjects.length === 0">
       <div class="hidden sm:flex sm:w-1/2 md:w-1/4 justify-end sm:pr-4" :style="{ backgroundColor: timelineBgColor }" @mouseenter="hoverOn()" @mouseleave="hoverOff()">
         <div class="flex flex-col border-r-2 py-4" :style="{ borderColor: timelineColor }">
@@ -73,58 +73,14 @@
         type: String
       },
 
-      // projects: {
-      //   required: true,
-      //   type: Array
-      // }
+      projects: {
+        required: true,
+        type: Array
+      }
     },
 
     data () {
       return {
-        projects: [
-          {
-            title: 'Ebicus',
-            subtitle: 'Consultant',
-            description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
-            image: `https://orig00.deviantart.net/e475/f/2011/338/e/f/the_green_circle___flag___logo_by_exxp0-d4i51ve.png`,
-            startYear: 2015,
-            endYear: null,
-            color: 'blue'
-          },
-          {
-            title: 'Overeem.io',
-            subtitle: 'Frontend developer',
-            description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
-            image: `https://orig00.deviantart.net/e475/f/2011/338/e/f/the_green_circle___flag___logo_by_exxp0-d4i51ve.png`,
-            startYear: 2001,
-            endYear: 2007,
-            color: 'yellow'
-          },
-          {
-            title: 'Foryard',
-            subtitle: 'Frontend developer',
-            description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
-            image: `https://orig00.deviantart.net/e475/f/2011/338/e/f/the_green_circle___flag___logo_by_exxp0-d4i51ve.png`,
-            startYear: 2012,
-            endYear: 2012,
-            color: 'green'
-          }
-        ],
         selectedProject: 0
       }
     },
@@ -138,7 +94,6 @@
               endYear: this.currentYear
             })
           }
-
           return project
         })
 
@@ -251,12 +206,8 @@
       },
 
       handleScroll (e) {
-        if (e.deltaY > 0) {
-          this.nextProject()
-        }
-        if (e.deltaY < 0) {
-          this.prevProject()
-        }
+        if (e.deltaY > 0) this.nextProject()
+        if (e.deltaY < 0) this.prevProject()
 
         e.preventDefault()
       },
@@ -281,17 +232,5 @@
     },
   }
 </script>
-
-// This should be removed, only for testing!
-<style>
-  h1, h2, h3 {
-    font-family: 'Oxygen';
-    font-weight: 400;
-  }
-
-  p {
-    font-family: 'Source Sans Pro';
-  }
-</style>
 
 <style src="./styles/main.css"></style>
