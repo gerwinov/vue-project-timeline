@@ -92,8 +92,8 @@
                           cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
             image: `https://orig00.deviantart.net/e475/f/2011/338/e/f/the_green_circle___flag___logo_by_exxp0-d4i51ve.png`,
-            startYear: 2010,
-            endYear: 2017,
+            startYear: 2015,
+            endYear: 2015,
             color: 'blue'
           },
           {
@@ -106,8 +106,8 @@
                           cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
             image: `https://orig00.deviantart.net/e475/f/2011/338/e/f/the_green_circle___flag___logo_by_exxp0-d4i51ve.png`,
-            startYear: 2018,
-            endYear: 2018,
+            startYear: 2001,
+            endYear: 2007,
             color: 'yellow'
           },
           {
@@ -120,8 +120,8 @@
                           cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
             image: `https://orig00.deviantart.net/e475/f/2011/338/e/f/the_green_circle___flag___logo_by_exxp0-d4i51ve.png`,
-            startYear: 2017,
-            endYear: 2018,
+            startYear: 2012,
+            endYear: 2012,
             color: 'green'
           }
         ],
@@ -131,7 +131,14 @@
 
     computed: {
       sortedProjects () {
-        return this.projects.slice().sort((a, b) => {
+        let projects = this.projects.map((project) => {
+          if (!project.endYear) {
+            project.endYear = this.currentYear
+          }
+          return project
+        })
+
+        return projects.sort((a, b) => {
           if (a.endYear > b.endYear) {
             return -1;
           }
@@ -148,7 +155,8 @@
         this.projects.forEach((project) => {
           if (project.title) {
             if (project.startYear && project.startYear > 1900 && project.startYear < 2100) {
-              if (project.endYear && project.endYear > 1900 && project.endYear < 2100) {
+              if (project.endYear <= this.currentYear) {
+                if (project.endYear >= project.startYear)
                 return
               }
             }
@@ -170,6 +178,10 @@
         return Math.min.apply(Math, this.projects.map((project) => {
           return project.startYear
         }))
+      },
+
+      currentYear () {
+        return (new Date()).getFullYear()
       },
 
       timelines () {
@@ -217,7 +229,7 @@
         if (key === 0) {
           return (this.endYear - this.sortedProjects[timeline[key]].endYear) * 2
         }
-        return (this.sortedProjects[timeline[key - 1]].startYear - this.sortedProjects[timeline[key]].endYear)
+        return (this.sortedProjects[timeline[key - 1]].startYear - this.sortedProjects[timeline[key]].endYear) * 2 - 1
       },
 
       getTimelineElementStyle (projectId) {
@@ -227,7 +239,6 @@
       },
 
       hoverOn () {
-        this.scrollPosition = window.pageYOffset
         window.addEventListener('wheel', this.handleScroll)
       },
 
@@ -242,6 +253,8 @@
         if (e.deltaY < 0) {
           this.prevProject()
         }
+
+        e.preventDefault()
       },
 
       nextProject () {
