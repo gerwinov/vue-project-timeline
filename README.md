@@ -69,6 +69,9 @@ projects: [
 ## Styling
 The Vue Project-timeline component uses the styling as present in your project for `h1, h2, h3, p` elements. These are used on the project cards. You can affect only elements in the Vue Project-timeline component by using `#vue-project-timeline` in your own CSS, as the whole component is wrapped in a `div` with that id.
 
+## Demo
+[Click here for a demo](https://gerwinov.github.io/vue-project-timeline-demo/)
+
 ## Feature requests
 Feature requests on this component are welcome!
 
