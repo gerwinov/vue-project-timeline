@@ -6,7 +6,7 @@
 npm install @gerwinov/vue-project-timeline --save
 ```
 
-### Usage
+## Usage
 Import in your Vue component..
 ```js
 import VueProjectTimeline from '@gerwinov/vue-project-timeline';
@@ -22,7 +22,7 @@ export default {
 <VueProjectTimeline :projects="projects" />
 ```
 
-### Props
+## Props
 You can pass the following props to the Vue Project-timeline component:
 
 | Prop name | Description | Type | Required | Default Value |
@@ -66,10 +66,10 @@ projects: [
 ]
 ```
 
-### Styling
+## Styling
 The Vue Project-timeline component uses the styling as present in your project for `h1, h2, h3, p` elements. These are used on the project cards. You can affect only elements in the Vue Project-timeline component by using `#vue-project-timeline` in your own CSS, as the whole component is wrapped in a `div` with that id.
 
-### Feature requests
+## Feature requests
 Feature requests on this component are welcome!
 
 
