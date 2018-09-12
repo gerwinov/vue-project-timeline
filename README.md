@@ -42,7 +42,7 @@ The `projects` prop expects an Array of Objects. Each object can have the follow
 | subtitle | The subtitle of the project | String | N | - | - |
 | description | The description of the project | String | N | - | - |
 | startYear | The start year of the project | Number | Y | Between 1900 - 2100 | - |
-| endYear | The end year of the project | Number | N | >= start year && <= current year | Current year |
+| endYear | The end year of the project | Number | Y | >= start year && <= current year | Current year when `0` or `null` provided |
 | image | The location of an image that is displayed with the project | String | N | - | - |
 | color | The color of the project in the timelne when selected | String | N | - | #ffffff |
 
