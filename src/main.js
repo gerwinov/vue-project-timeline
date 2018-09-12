@@ -5,4 +5,4 @@ Vue.config.productionTip = false
 
 new Vue({
   render: h => h(VueProjectTimeline)
-}).$mount('#app')
+}).$mount('#vue-project-timeline')

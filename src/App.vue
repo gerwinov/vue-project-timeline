@@ -1,39 +1,44 @@
 <template>
-  <div id="app" v-if="projects">
-    <div class="flex" v-if="invalidProjects.length === 0">
-      <div class="hidden sm:flex sm:w-1/2 md:w-1/4 justify-end sm:pr-4" :style="{ backgroundColor: timelineBgColor }" @mouseenter="hoverOn()" @mouseleave="hoverOff()">
-        <div class="flex flex-col border-r-2 py-4" :style="{ borderColor: timelineColor }">
-          <div class="flex text-white pr-2 h-10 items-center" :key="'y' + key" v-for="(year, key) in timelineYears">
-            <h3 class="font-normal">{{ year }}</h3>
+  <div id="vue-project-timeline">
+    <div v-if="projects">
+      <div class="flex" v-if="invalidProjects.length === 0">
+        <div class="hidden sm:flex sm:w-1/2 md:w-1/4 justify-end sm:pr-4" :style="{ backgroundColor: timelineBgColor }" @mouseenter="hoverOn()" @mouseleave="hoverOff()">
+          <div class="flex flex-col border-r-2 py-4" :style="{ borderColor: timelineColor }">
+            <div class="flex text-white pr-2 h-10 items-center" :key="'y' + key" v-for="(year, key) in timelineYears">
+              <h3 class="font-normal">{{ year }}</h3>
+            </div>
           </div>
-        </div>
-        <div class="flex flex-col py-4" :key="'t' + key" v-for="(timeline, key) in timelines">
-          <div class="ml-4" :key="'p' + key" v-for="(projectId, key) in timeline">
-            <div class="h-10" :key="'n' + key" v-for="(n, key) in getProjectSpacing(timeline, key)"></div>
-            <div
-              class="h-10 w-3 cursor-pointer bg-white opacity-50"
-              :style="getTimelineElementStyle(projectId)"
-              :class="{ 'shadow-md opacity-100' : selectedProject === projectId }"
-              :key="'py' + key"
-              v-for="(n, key) in getProjectYears(projectId)"
-              @click="selectedProject = projectId">
+          <div class="flex flex-col py-4" :key="'t' + key" v-for="(timeline, key) in timelines">
+            <div class="ml-4" :key="'p' + key" v-for="(projectId, key) in timeline">
+              <div class="h-10" :key="'n' + key" v-for="(n, key) in getProjectSpacing(timeline, key)"></div>
+              <div
+                class="h-10 w-3 cursor-pointer bg-white opacity-50"
+                :style="getTimelineElementStyle(projectId)"
+                :class="{ 'shadow-md opacity-100' : selectedProject === projectId }"
+                :key="'py' + key"
+                v-for="(n, key) in getProjectYears(projectId)"
+                @click="selectedProject = projectId">
+              </div>
             </div>
           </div>
         </div>
+        <div class="flex flex-col w-full sm:w-1/2 md:w-3/4">
+          <project-card
+            :project="project"
+            :selected="selectedProject === key"
+            :selectedBgColor="selectedBgColor"
+            :hoverBgColor="hoverBgColor"
+            :key="'pc' + key"
+            v-for="(project, key) in sortedProjects"
+            @selected="selectedProject = key">
+          </project-card>
+        </div>
       </div>
-      <div class="flex flex-col w-full sm:w-1/2 md:w-3/4">
-        <project-card
-          :project="project"
-          :selected="selectedProject === key"
-          :selectedBgColor="selectedBgColor"
-          :hoverBgColor="hoverBgColor"
-          :key="'pc' + key"
-          v-for="(project, key) in sortedProjects"
-          @selected="selectedProject = key">
-        </project-card>
-      </div>
+      <config-error :invalidProjects="invalidProjects" v-else></config-error>
     </div>
-    <config-error :invalidProjects="invalidProjects" v-else></config-error>
+    <div v-else>
+      <p>No projects provided. Please see <a href="https://github.com/gerwinov/vue-project-timeline">the docs</a> for required config.</p>
+    </div>
   </div>
 </template>
 

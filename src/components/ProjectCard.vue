@@ -5,10 +5,10 @@
         <img alt="project logo" :src="project.image" v-if="project.image">
       </div>
       <div class="flex flex-col">
-        <h1 class="leading-none">{{ project.title }}</h1>
-        <h2>{{ project.subtitle }}</h2>
-        <h3 class="block sm:hidden pt-1" v-text="projectYears"></h3>
-        <p class="pt-3 hidden sm:block" v-if="selected">{{ project.description }}</p>
+        <h1 class="leading-none" :class="{ 'text-white' : selected }">{{ project.title }}</h1>
+        <h2 :class="{ 'text-white' : selected }">{{ project.subtitle }}</h2>
+        <h3 class="block sm:hidden pt-1" :class="{ 'text-white' : selected }" v-text="projectYears"></h3>
+        <p class="pt-3 hidden sm:block text-white" v-if="selected">{{ project.description }}</p>
       </div>
     </div>
     <div class="flex sm:hidden px-4">
