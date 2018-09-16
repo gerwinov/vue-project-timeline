@@ -1,20 +1,20 @@
 <template>
   <div id="vue-project-timeline">
     <div v-if="projects">
-      <div class="flex" v-if="invalidProjects.length === 0">
-        <div class="hidden sm:flex sm:w-1/2 md:w-1/4 justify-end sm:pr-4" :style="{ backgroundColor: timelineBgColor }" @mouseenter="hoverOn()" @mouseleave="hoverOff()">
-          <div class="flex flex-col border-r-2 py-4" :style="{ borderColor: timelineColor }">
-            <div class="flex text-white pr-2 h-10 items-center" :key="'y' + key" v-for="(year, key) in timelineYears">
-              <h3 class="font-normal">{{ year }}</h3>
+      <div class="ptl1-flex" v-if="invalidProjects.length === 0">
+        <div class="ptl1-hidden sm:ptl1-flex sm:ptl1-w-1/2 md:ptl1-w-1/4 ptl1-justify-end sm:ptl1-pr-4" :style="{ backgroundColor: timelineBgColor }" @mouseenter="hoverOn()" @mouseleave="hoverOff()">
+          <div class="ptl1-flex ptl1-flex-col ptl1-border-r-2 ptl1-py-4" :style="{ borderColor: timelineColor }">
+            <div class="ptl1-flex ptl1-text-white ptl1-pr-2 ptl1-h-10 ptl1-items-center" :key="'y' + key" v-for="(year, key) in timelineYears">
+              <h3 class="ptl1-font-normal">{{ year }}</h3>
             </div>
           </div>
-          <div class="flex flex-col py-4" :key="'t' + key" v-for="(timeline, key) in timelines">
-            <div class="ml-4" :key="'p' + key" v-for="(projectId, key) in timeline">
-              <div class="h-10" :key="'n' + key" v-for="(n, key) in getProjectSpacing(timeline, key)"></div>
+          <div class="ptl1-flex ptl1-flex-col ptl1-py-4" :key="'t' + key" v-for="(timeline, key) in timelines">
+            <div class="ptl1-ml-4" :key="'p' + key" v-for="(projectId, key) in timeline">
+              <div class="ptl1-h-10" :key="'n' + key" v-for="(n, key) in getProjectSpacing(timeline, key)"></div>
               <div
-                class="h-10 w-3 cursor-pointer bg-white opacity-50"
+                class="ptl1-h-10 ptl1-w-3 ptl1-cursor-pointer ptl1-bg-white ptl1-opacity-50"
                 :style="getTimelineElementStyle(projectId)"
-                :class="{ 'shadow-md opacity-100' : selectedProject === projectId }"
+                :class="{ 'ptl1-shadow-md ptl1-opacity-100' : selectedProject === projectId }"
                 :key="'py' + key"
                 v-for="(n, key) in getProjectYears(projectId)"
                 @click="selectedProject = projectId">
@@ -22,7 +22,7 @@
             </div>
           </div>
         </div>
-        <div class="flex flex-col w-full sm:w-1/2 md:w-3/4">
+        <div class="ptl1-flex ptl1-flex-col ptl1-w-full sm:ptl1-w-1/2 md:ptl1-w-3/4">
           <project-card
             :project="project"
             :selected="selectedProject === key"

@@ -944,7 +944,7 @@ module.exports = {
   */
 
   options: {
-    prefix: '',
+    prefix: 'ptl1-',
     important: false,
     separator: ':',
   },
