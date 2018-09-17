@@ -2,7 +2,7 @@
   <div id="vue-project-timeline">
     <div v-if="projects">
       <div class="ptl1-flex" v-if="invalidProjects.length === 0">
-        <div class="ptl1-hidden sm:ptl1-flex sm:ptl1-w-1/2 md:ptl1-w-1/4 ptl1-justify-end sm:ptl1-pr-4" :style="{ backgroundColor: timelineBgColor }" @mouseenter="hoverOn()" @mouseleave="hoverOff()">
+        <div class="ptl1-hidden sm:ptl1-flex sm:ptl1-w-1/2 md:ptl1-w-1/4 ptl1-justify-end sm:ptl1-pr-4" :style="{ backgroundColor: timelineBgColor }" @click="clickOn()" @mouseleave="hoverOff()">
           <div class="ptl1-flex ptl1-flex-col ptl1-border-r-2 ptl1-py-4" :style="{ borderColor: timelineColor }">
             <div class="ptl1-flex ptl1-text-white ptl1-pr-2 ptl1-h-10 ptl1-items-center" :key="'y' + key" v-for="(year, key) in timelineYears">
               <h3 class="ptl1-font-normal">{{ year }}</h3>
@@ -17,7 +17,7 @@
                 :class="{ 'ptl1-shadow-md ptl1-opacity-100' : selectedProject === projectId }"
                 :key="'py' + key"
                 v-for="(n, key) in getProjectYears(projectId)"
-                @click="selectedProject = projectId">
+                @click.stop="selectedProject = projectId">
               </div>
             </div>
           </div>
@@ -86,7 +86,8 @@
 
     data () {
       return {
-        selectedProject: 0
+        selectedProject: 0,
+        scrollLocked: false
       }
     },
 
@@ -202,11 +203,18 @@
         }
       },
 
-      hoverOn () {
-        window.addEventListener('wheel', this.handleScroll)
+      clickOn () {
+        this.scrollLocked = !this.scrollLocked
+
+        if (this.scrollLocked) {
+          window.addEventListener('wheel', this.handleScroll)
+          return
+        }
+        window.removeEventListener('wheel', this.handleScroll)
       },
 
       hoverOff () {
+        this.scrollLocked = false
         window.removeEventListener('wheel', this.handleScroll)
       },
 
